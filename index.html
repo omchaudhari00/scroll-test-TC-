@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Quality Scroll Background</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fullscreen Ultra-HD Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Slim Top Accent Progress Line -->
+  <div class="scroll-progress-line" id="progress-line"></div>
+
+  <!-- Minimal Discreet Floating HUD (Auto-dims when idle) -->
+  <div class="minimal-hud" id="minimal-hud">
+    <div class="hud-inner">
+      <button id="btn-play-pause" class="hud-btn" title="Play / Pause Autoplay (Spacebar)" aria-label="Toggle autoplay">
+        <svg id="icon-play" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <svg id="icon-pause" class="hidden" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="6" y="4" width="4" height="16"/>
+          <rect x="14" y="4" width="4" height="16"/>
+        </svg>
+      </button>
+
+      <div class="hud-counter">
+        <span class="hud-curr" id="hud-frame">001</span>
+        <span class="hud-sep">/</span>
+        <span class="hud-total">297</span>
+      </div>
+
+      <button id="btn-fullscreen" class="hud-btn" title="Toggle Fullscreen (F)" aria-label="Toggle fullscreen">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Logo and Text Container -->
+  <div id="intro-logo-container" class="intro-logo-container">
+    <img src="logo.png" alt="Trusted Communities Logo" class="intro-logo">
+    <h1 class="intro-text">Trusted Communities Organization</h1>
+  </div>
+
+  <!-- Initial Minimal Scroll Prompt (Fades out immediately on scroll) -->
+  <div class="scroll-prompt" id="scroll-prompt">
+    <span class="scroll-mouse">
+      <span class="scroll-wheel"></span>
+    </span>
+    <span class="scroll-text">Scroll to animate</span>
+  </div>
+
+  <!-- Invisible Scroll Track providing natural scrollable room -->
+  <div class="scroll-track" id="scroll-track"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

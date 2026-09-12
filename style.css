@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Pure Full-Screen High-Quality Background Scroll Animation
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fullscreen Fixed Canvas — Stretches 100% Edge-to-Edge */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Invisible Scroll Track providing natural scrollable room for 297 frames */
+.scroll-track {
+  width: 100%;
+  height: 650vh;
+  position: relative;
+  pointer-events: none;
+}
+
+/* Slim Top Accent Progress Line */
+.scroll-progress-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, #cba378, #e5be8a, #fff);
+  box-shadow: 0 0 12px rgba(229, 190, 138, 0.7);
+  z-index: 100;
+  pointer-events: none;
+  transition: width 0.04s linear;
+}
+
+/* Minimal Discreet Floating HUD */
+.minimal-hud {
+  position: fixed;
+  bottom: 2rem;
+  right: 2.5rem;
+  z-index: 50;
+  opacity: 0.65;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease;
+}
+
+.minimal-hud:hover, .minimal-hud.active {
+  opacity: 1;
+}
+
+.hud-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(9, 13, 20, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  padding: 0.45rem 0.95rem;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.hud-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.hud-btn:hover {
+  background: rgba(229, 190, 138, 0.25);
+  border-color: #e5be8a;
+  color: #e5be8a;
+  transform: scale(1.06);
+}
+
+.hud-counter {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  user-select: none;
+}
+
+.hud-curr {
+  color: #e5be8a;
+  min-width: 28px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.hud-total {
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Initial Scroll Prompt */
+.scroll-prompt {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-prompt.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(15px);
+}
+
+.scroll-mouse {
+  width: 22px;
+  height: 34px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+
+.scroll-wheel {
+  width: 3px;
+  height: 7px;
+  background-color: #e5be8a;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  animation: wheelScroll 1.8s infinite ease-in-out;
+}
+
+@keyframes wheelScroll {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+
+.scroll-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .minimal-hud {
+    right: 1.25rem;
+    bottom: 1.25rem;
+  }
+}
+
+/* Intro Logo Container */
+.intro-logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  pointer-events: none;
+  transition: opacity 0.1s linear, transform 0.1s linear;
+}
+
+.intro-logo {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6));
+}
+
+.intro-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-shadow: 0px 4px 12px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
