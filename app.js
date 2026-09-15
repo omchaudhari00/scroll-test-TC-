@@ -7,8 +7,8 @@
   'use strict';
 
   // --- Configuration ---
-  const TOTAL_FRAMES = 198;
-  const FRAME_PATH = (i) => `farme/farme${String(i).padStart(5, '0')}.png`;
+  const TOTAL_FRAMES = 334;
+  const FRAME_PATH = (i) => `frames/frame${String(i).padStart(5, '0')}.png`;
   const LERP_FACTOR = 0.15; // Silky smooth deceleration
   const INITIAL_BATCH = 25; // Instant load priority
 
@@ -270,6 +270,7 @@
   requestAnimationFrame(loop);
 
 })();
+
 
 
 
